@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ALMBank.Models.Services;
+using ALMBank.Models.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,7 +27,9 @@ namespace ALMBank
         {
             services.AddControllersWithViews();
             //test
-            // Test branch
+            // Test branch dasdasdasas
+            services.AddScoped<IBank, BankRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
