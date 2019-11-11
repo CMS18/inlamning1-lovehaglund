@@ -8,6 +8,7 @@ namespace ALMBank.Models
     public class Customer
     {
         public string CustomerName { get; set; }
+        public int CustomerID { get; set; }
         public Account Account { get; set; }
     }
 }
