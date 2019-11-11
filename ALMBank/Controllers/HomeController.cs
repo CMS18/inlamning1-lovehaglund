@@ -6,21 +6,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ALMBank.Models;
+using ALMBank.Models.Services.Interface;
+using ALMBank.Models.ViewModels;
 
 namespace ALMBank.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBank _bank;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IBank bank)
         {
+            _bank = bank;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = new CustomerAccountsViewModel();
+            model = _bank.GetCustomer(model);
+            return View(model);
         }
 
         public IActionResult Privacy()

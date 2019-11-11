@@ -1,8 +1,28 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model ALMBank.Models.ViewModels.CustomerAccountsViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">Customer name</th>
+        <th scope="col">Account name</th>
+        <th scope="col">Account Balance</th>
+    </tr>
+    </thead>
+    <tbody>
+            @foreach (var p in Model.CustomerList)
+            {
+                <tr>
+
+                <td>@p.CustomerName</td>
+                <td>@p.Account.AccountName</td>
+                <td>@p.Account.Balance</td>
+                </tr>
+            }
+        
+
+    </tbody>
+</table>
+
