@@ -8,6 +8,7 @@ namespace ALMBank.Models
     public class Account
     {
         public string AccountName { get; set; }
+        public int AccountID { get; set; }
         public decimal Balance { get; set; }
     }
 }
