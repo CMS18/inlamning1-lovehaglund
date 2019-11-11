@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+ALMBank/appsettings.json
+
+ALMBank/appsettings.Development.json
