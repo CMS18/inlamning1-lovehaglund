@@ -25,6 +25,14 @@ namespace ALMBank.Models.Services
 
         public List<Customer> GetCustomers() => Customers;
 
+        public HomeViewModel getBankData(HomeViewModel model)
+        {
+            var customers = GetCustomers();
+            model.TotalBalance = customers.Select(m => m.Account.Balance).Count();
+            model.NumberOfCustomers = customers.Count();
+            return model;
+        }
+
         public TransactionViewModel Deposit(TransactionViewModel model)
         {
             model.AmountValid = false;
