@@ -1,12 +1,5 @@
-﻿@model ALMBank.Models.ViewModels.TransactionViewModel    
+﻿@model ALMBank.Models.ViewModels.TransactionViewModel
 <form method="post" asp-controller="Transaction">
-    <div class="row">
-        <div class="validation_text">
-            <span asp-validation-for="@Model.Amount"></span>
-            <div asp-validation-summary="All">
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col">
             <label>Account number</label>
@@ -29,4 +22,16 @@
         </div>
     </div>
 </form>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["Message"]
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong> @TempData["Error"]
+    </div>
+}
 

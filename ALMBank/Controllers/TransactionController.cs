@@ -30,18 +30,18 @@ namespace ALMBank.Controllers
             model = _bank.Withdraw(model);
             if (model.AccountExist == false)
             {
-                ModelState.AddModelError("", "Account does not exist");
+                TempData["Error"] = "Account does not exist.";
                 return View("Index", model);
             }
             if (model.AmountValid == false)
             {
-                ModelState.AddModelError("", "Invalid amount");
+                TempData["Error"] = "Invalid amount";
                 return View("Index", model);
 
             }
-           
 
-            return RedirectToAction("Index","Home");
+            TempData["Message"] = $"Successfully withdrew {model.Amount:C} from account #{model.AccountNumber}";
+            return View("Index");
         }
         [HttpPost]
         public IActionResult Deposit(TransactionViewModel model)
@@ -50,17 +50,17 @@ namespace ALMBank.Controllers
 
             if (model.AccountExist == false)
             {
-                ModelState.AddModelError("", "Account does not exist");
+                TempData["Error"] = "Account does not exist.";
                 return View("Index", model);
             }
             if (model.AmountValid == false)
             {
-                ModelState.AddModelError("", "Invalid amount");
+                TempData["Error"] = "Invalid amount";
                 return View("Index", model);
 
             }
-
-            return RedirectToAction("Index", "Home");
+            TempData["Message"] = $"Successfully deposit {model.Amount:C} to account #{model.AccountNumber}";
+            return View("Index");
 
         }
     }
