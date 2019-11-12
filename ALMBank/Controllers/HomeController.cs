@@ -28,6 +28,9 @@ namespace ALMBank.Controllers
         {
             HomeViewModel model = new HomeViewModel();
             model.Customers = _bank.GetCustomers();
+            var stats = _bank.getBankData(model);
+            model.NumberOfCustomers = stats.NumberOfCustomers;
+            model.TotalBalance = stats.TotalBalance;
             return View(model);
         }
 
