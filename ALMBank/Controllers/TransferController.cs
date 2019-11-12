@@ -40,7 +40,7 @@ namespace ALMBank.Controllers
             else
             {
                 TempData["Error"] =
-                    $"An error occured while making the transfer. Make sure the account number and amount is correct.";
+                    $"An error occured while making the transfer. Make sure the account number(s) and amount is correctly formatted.";
             }
             return RedirectToAction(nameof(Index));
         }

@@ -98,6 +98,7 @@ namespace ALMBank.Models.Services
 
         public bool Transfer(int fromAccountId, int toAccountId, decimal sum)
         {
+            if (fromAccountId == toAccountId) return false;
             var accountFrom = GetAccount(fromAccountId);
             var accountTo = GetAccount(toAccountId);
 
