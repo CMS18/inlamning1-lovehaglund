@@ -23,14 +23,15 @@ namespace ALMBank.Models.Services
             return Customers.SingleOrDefault(x => x.Account.AccountID == accountId)?.Account;
         }
 
+
         public List<Customer> GetCustomers() => Customers;
 
-        public HomeViewModel getBankData(HomeViewModel model)
+        public BankDataDto GetBankData()
         {
-            var customers = GetCustomers();
-            model.TotalBalance = customers.Select(m => m.Account.Balance).Count();
-            model.NumberOfCustomers = customers.Count();
-            return model;
+            BankDataDto data = new BankDataDto();
+            data.TotalBalance = Customers.Select(m => m.Account.Balance).Sum();
+            data.NumberOfCustomers = Customers.Count();
+            return data;
         }
 
         public TransactionViewModel Deposit(TransactionViewModel model)
