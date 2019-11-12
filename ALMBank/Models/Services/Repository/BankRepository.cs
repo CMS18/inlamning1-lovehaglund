@@ -58,7 +58,7 @@ namespace ALMBank.Models.Services
             if (CustomerAccountsViewModel.CustomerList.Exists(m => m.Account.AccountID == model.AccountNumber))
             {
                 model.AccountExist = true;
-                if (model.Amount > ((decimal) 0.01))
+                if (model.Amount > ((decimal)0.01))
                 {
                     model.AmountValid = true;
                     var accounts = CustomerAccountsViewModel.CustomerList.Select(c => c.Account.AccountID);
@@ -88,6 +88,26 @@ namespace ALMBank.Models.Services
             model.AccountExist = false;
             return model;
 
+        }
+
+        private Account GetAccount(int accountId)
+        {
+            return CustomerAccountsViewModel.CustomerList.SingleOrDefault(x => x.Account.AccountID == accountId)?.Account;
+        }
+
+
+        public bool Transfer(int fromAccountId, int toAccountId, decimal sum)
+        {
+            var accountFrom = GetAccount(fromAccountId);
+            var accountTo = GetAccount(toAccountId);
+
+            if (accountTo == null || accountFrom == null) return false;
+
+            if (accountFrom.Balance < sum) return false;
+
+            accountFrom.Balance -= sum;
+            accountTo.Balance += sum;
+            return true;
         }
 
         public TransactionViewModel Withdraw(TransactionViewModel model)
