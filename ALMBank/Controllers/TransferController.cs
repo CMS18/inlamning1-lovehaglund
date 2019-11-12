@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ALMBank.Models.Services.Interface;
+using ALMBank.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ALMBank.Controllers
@@ -19,6 +20,14 @@ namespace ALMBank.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(TransferDto model)
+        {
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,1 +1,31 @@
 ﻿@model ALMBank.Models.ViewModels.TransferDto
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form asp-controller="Transfer" asp-action="Index" method="POST">
+                <div class="form-row">
+                    <div class="col-6">
+                        <label>
+                            From Account #
+                            <input class="form-control" asp-for="FromAccountId" />
+                        </label>
+                    </div>
+                    <div class="col-6">
+                        <label>
+                            To Account #
+                            <input class="form-control" asp-for="ToAccountId" />
+                        </label>
+                    </div>
+                </div>
+                <label>
+                    Amount
+                    <input class="form-control" asp-for="Sum" />
+                </label>
+                <div class="form-group">
+                    <button class="btn btn-primary">Transfer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
