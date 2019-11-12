@@ -33,15 +33,16 @@ namespace XUnitALMBank
             accountTo.Balance = 100M;
 
             // Act
-            repo.Transfer(accountFrom.AccountID, accountTo.AccountID, 100M);
+            var success = repo.Transfer(accountFrom.AccountID, accountTo.AccountID, 100M);
 
             // Assert
+            success.ShouldBe(true);
             accountFrom.Balance.ShouldBe(0M);
             accountTo.Balance.ShouldBe(200M);
         }
 
         [Fact]
-        public void Transfer_InvalidAmount_BalanceUnchanged()
+        public void Transfer_ExceedsLimit_TransferShouldFail()
         {
             // Arrange
             var repo = new BankRepository();
@@ -51,9 +52,10 @@ namespace XUnitALMBank
             accountTo.Balance = 100M;
 
             // Act
-            repo.Transfer(accountFrom.AccountID, accountTo.AccountID, 1000M);
+            var success = repo.Transfer(accountFrom.AccountID, accountTo.AccountID, 1000M);
 
             // Assert
+            success.ShouldBe(false);
             accountFrom.Balance.ShouldBe(500M);
             accountTo.Balance.ShouldBe(100M);
         }
