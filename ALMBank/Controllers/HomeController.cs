@@ -26,7 +26,9 @@ namespace ALMBank.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+            model.Customers = _bank.GetCustomers();
+            return View(model);
         }
 
         public IActionResult Privacy()

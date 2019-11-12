@@ -10,6 +10,8 @@ namespace ALMBank.Models.Services.Interface
     {
         TransactionViewModel Withdraw(TransactionViewModel model);
         TransactionViewModel Deposit(TransactionViewModel model);
+        List<Customer> GetCustomers();
+        Account GetAccount(int accountId);
         bool Transfer(int fromAccountId, int toAccountId, decimal sum);
 
     }

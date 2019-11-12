@@ -1,4 +1,4 @@
-﻿@using ALMBank.Models.ViewModels
+﻿@model ALMBank.Models.ViewModels.HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-            @foreach (var p in CustomerAccountsViewModel.CustomerList)
+            @foreach (var p in Model.Customers)
             {
                 <tr>
                     <td>@p.Account.AccountID</td>
