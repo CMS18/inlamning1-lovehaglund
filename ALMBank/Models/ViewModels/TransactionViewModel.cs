@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
+using ALMBank.Models.Entities;
 
 namespace ALMBank.Models.ViewModels
 {
@@ -12,5 +12,6 @@ namespace ALMBank.Models.ViewModels
         public decimal Amount { get; set; }
         public int AccountNumber { get; set; }
         public bool AmountValid { get; set; }
+        public bool AccountExist { get; set; }
     }
 }

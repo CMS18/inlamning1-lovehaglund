@@ -1,12 +1,12 @@
 ﻿@model ALMBank.Models.ViewModels.TransactionViewModel    
 <form method="post" asp-controller="Transaction">
-    <row>
+    <div class="row">
         <div class="validation_text">
             <span asp-validation-for="@Model.Amount"></span>
             <div asp-validation-summary="All">
             </div>
         </div>
-    </row>
+    </div>
     <div class="row">
         <div class="col">
             <label>Account number</label>

@@ -53,45 +53,82 @@ namespace ALMBank.Models.Services
 
         public TransactionViewModel Deposit(TransactionViewModel model)
         {
-            var accounts = CustomerAccountsViewModel.CustomerList.Select(c => c.Account.AccountID);
-            if (accounts.Contains(model.AccountNumber))
+            model.AmountValid = false;
+            model.AccountExist = false;
+            if (CustomerAccountsViewModel.CustomerList.Exists(m => m.Account.AccountID == model.AccountNumber))
             {
-                var account = CustomerAccountsViewModel.CustomerList.SingleOrDefault(m => m.Account.AccountID == model.AccountNumber);
-                var amount = Math.Round(model.Amount, 2);
-                account.Account.Balance = (account.Account.Balance + amount);
+                model.AccountExist = true;
+                if (model.Amount > ((decimal) 0.01))
+                {
+                    model.AmountValid = true;
+                    var accounts = CustomerAccountsViewModel.CustomerList.Select(c => c.Account.AccountID);
+                    if (accounts.Contains(model.AccountNumber))
+                    {
+                        var account = CustomerAccountsViewModel.CustomerList.SingleOrDefault(m => m.Account.AccountID == model.AccountNumber);
+                        if (model.Amount > account.Account.Balance)
+                        {
+                            model.AmountValid = false;
+                            return model;
+                        }
 
-                return model;
-            }
-            else
-            {
-                return null;
-            }
-        }
+                        var amount = Math.Round(model.Amount, 2);
+                        account.Account.Balance = (account.Account.Balance + amount);
+                        return model;
+                    }
+                    else return null;
 
-
-        public TransactionViewModel Withdraw(TransactionViewModel model)
-        {
-            model.AmountValid = true;
-
-            var accounts = CustomerAccountsViewModel.CustomerList.Select(c => c.Account.AccountID);
-            if (accounts.Contains(model.AccountNumber))
-            {
-                var account = CustomerAccountsViewModel.CustomerList.SingleOrDefault(m => m.Account.AccountID == model.AccountNumber);
-                if (model.Amount > account.Account.Balance)
+                }
+                else
                 {
                     model.AmountValid = false;
                     return model;
                 }
-
-                    var amount = Math.Round(model.Amount, 2);
-                account.Account.Balance = (account.Account.Balance - amount);
-
-                return model;
             }
-            else
+
+            model.AccountExist = false;
+            return model;
+
+        }
+
+        public TransactionViewModel Withdraw(TransactionViewModel model)
+        {
+            model.AmountValid = false;
+            model.AccountExist = false;
+            if (CustomerAccountsViewModel.CustomerList.Exists(m => m.Account.AccountID == model.AccountNumber))
             {
-                return null;
+                model.AccountExist = true;
+                if (model.Amount > ((decimal)0.01))
+                {
+                    model.AmountValid = true;
+                    var accounts = CustomerAccountsViewModel.CustomerList.Select(c => c.Account.AccountID);
+                    if (accounts.Contains(model.AccountNumber))
+                    {
+                        var account =
+                            CustomerAccountsViewModel.CustomerList.SingleOrDefault(m =>
+                                m.Account.AccountID == model.AccountNumber);
+                        if (model.Amount > account.Account.Balance)
+                        {
+                            model.AmountValid = false;
+                            return model;
+                        }
+
+                        var amount = Math.Round(model.Amount, 2);
+                        account.Account.Balance = (account.Account.Balance - amount);
+                        return model;
+                    }
+                    else return null;
+
+                }
+                else
+                {
+                    model.AmountValid = false;
+                    return model;
+                }
             }
+
+            model.AccountExist = false;
+            return model;
+
         }
 
     }

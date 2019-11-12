@@ -26,56 +26,42 @@ namespace ALMBank.Controllers
         [HttpPost]
         public IActionResult Withdraw(TransactionViewModel model)
         {
-            if (model.Amount > ((decimal) 0.01))
+           
+            model = _bank.Withdraw(model);
+            if (model.AccountExist == false)
             {
-                if (CustomerAccountsViewModel.CustomerList.Exists(m => m.Account.AccountID == model.AccountNumber))
-                {
-                    model = _bank.Withdraw(model);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Account does not exist");
-                    return View("Index", model);
-                }
+                ModelState.AddModelError("", "Account does not exist");
+                return View("Index", model);
             }
-            else
+            if (model.AmountValid == false)
             {
                 ModelState.AddModelError("", "Invalid amount");
                 return View("Index", model);
 
             }
-
-            if (model.AmountValid == false)
-            {
-                ModelState.AddModelError("", "You dont have enough money");
-                return View("Index",model);
-            }
+           
 
             return RedirectToAction("Index","Home");
         }
         [HttpPost]
         public IActionResult Deposit(TransactionViewModel model)
         {
-            if (model.Amount > ((decimal)0.01))
+            model = _bank.Deposit(model);
+
+            if (model.AccountExist == false)
             {
-                if (CustomerAccountsViewModel.CustomerList.Exists(m => m.Account.AccountID == model.AccountNumber))
-                {
-                    model = _bank.Deposit(model);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Account does not exist");
-                    return View("Index", model);
-                }
+                ModelState.AddModelError("", "Account does not exist");
+                return View("Index", model);
             }
-            else
+            if (model.AmountValid == false)
             {
                 ModelState.AddModelError("", "Invalid amount");
                 return View("Index", model);
+
             }
-           
-           
+
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }
