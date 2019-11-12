@@ -8,7 +8,7 @@ namespace ALMBank.Models.Services.Interface
 {
     public interface IBank
     {
-        CustomerAccountsViewModel GetCustomer(CustomerAccountsViewModel model);
-
+        TransactionViewModel Withdraw(TransactionViewModel model);
+        TransactionViewModel Deposit(TransactionViewModel model);
     }
 }

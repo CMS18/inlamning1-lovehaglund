@@ -1,0 +1,32 @@
+﻿@model ALMBank.Models.ViewModels.TransactionViewModel    
+<form method="post" asp-controller="Transaction">
+    <row>
+        <div class="validation_text">
+            <span asp-validation-for="@Model.Amount"></span>
+            <div asp-validation-summary="All">
+            </div>
+        </div>
+    </row>
+    <div class="row">
+        <div class="col">
+            <label>Account number</label>
+            <input asp-for="@Model.AccountNumber" class="form-control" placeholder="Enter account number..">
+        </div>
+        <div class="col">
+            <label asp-for="Amount">Amount</label>
+            <input asp-for="@Model.Amount" class="form-control validate" placeholder="Enter amount..">
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col">
+            <label>-</label>
+            <button type="submit" class="btn btn-primary form-control" asp-controller="Transaction" asp-action="Deposit">Deposit</button>
+        </div>
+        <div class="col">
+            <label>-</label>
+            <button type="submit" class="btn btn-primary form-control" asp-controller="Transaction" asp-action="Withdraw">Withdraw</button>
+        </div>
+    </div>
+</form>
+

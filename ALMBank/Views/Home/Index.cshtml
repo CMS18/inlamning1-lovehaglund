@@ -1,7 +1,8 @@
-﻿@{
+﻿@using ALMBank.Models.ViewModels
+@{
     ViewData["Title"] = "Home Page";
 }
-@model ALMBank.Models.ViewModels.CustomerAccountsViewModel
+
 
 <table class="table table-dark">
     <thead>
@@ -13,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-            @foreach (var p in Model.CustomerList)
+            @foreach (var p in CustomerAccountsViewModel.CustomerList)
             {
                 <tr>
                     <td>@p.Account.AccountID</td>

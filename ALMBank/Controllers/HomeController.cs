@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ALMBank.Models;
+using ALMBank.Models.Services;
 using ALMBank.Models.Services.Interface;
 using ALMBank.Models.ViewModels;
 
@@ -24,9 +26,7 @@ namespace ALMBank.Controllers
 
         public IActionResult Index()
         {
-            var model = new CustomerAccountsViewModel();
-            model = _bank.GetCustomer(model);
-            return View(model);
+            return View();
         }
 
         public IActionResult Privacy()

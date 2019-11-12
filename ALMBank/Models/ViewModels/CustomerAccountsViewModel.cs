@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 
 namespace ALMBank.Models.ViewModels
 {
-    public class CustomerAccountsViewModel
+    public static class CustomerAccountsViewModel
     {
-        public List<Customer> CustomerList { get; set; }
+        public static List<Customer> CustomerList { get; set; }
 
-        public CustomerAccountsViewModel()
+        static CustomerAccountsViewModel()
         {
             CustomerList = new List<Customer>();
         }
+
     }
 }
