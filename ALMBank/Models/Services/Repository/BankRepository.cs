@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ALMBank.Models.Services.Interface;
 using ALMBank.Models.ViewModels;
@@ -9,7 +10,7 @@ namespace ALMBank.Models.Services
 {
     public class BankRepository : IBank
     {
-        public CustomerAccountsViewModel GetCustomer(CustomerAccountsViewModel model)
+        public static List<Customer> GetCustomers()
         {
             var customer1 = new Customer
             {
@@ -44,11 +45,91 @@ namespace ALMBank.Models.Services
                     AccountID = 3
                 }
             };
-            model.CustomerList.Add(customer1);
-            model.CustomerList.Add(customer2);
-            model.CustomerList.Add(customer3);
-            return model;
+            CustomerAccountsViewModel.CustomerList.Add(customer1);
+            CustomerAccountsViewModel.CustomerList.Add(customer2);
+            CustomerAccountsViewModel.CustomerList.Add(customer3);
+            return CustomerAccountsViewModel.CustomerList;
         }
-      
+
+        public TransactionViewModel Deposit(TransactionViewModel model)
+        {
+            model.AmountValid = false;
+            model.AccountExist = false;
+            if (CustomerAccountsViewModel.CustomerList.Exists(m => m.Account.AccountID == model.AccountNumber))
+            {
+                model.AccountExist = true;
+                if (model.Amount > ((decimal) 0.01))
+                {
+                    model.AmountValid = true;
+                    var accounts = CustomerAccountsViewModel.CustomerList.Select(c => c.Account.AccountID);
+                    if (accounts.Contains(model.AccountNumber))
+                    {
+                        var account = CustomerAccountsViewModel.CustomerList.SingleOrDefault(m => m.Account.AccountID == model.AccountNumber);
+                        if (model.Amount > account.Account.Balance)
+                        {
+                            model.AmountValid = false;
+                            return model;
+                        }
+
+                        var amount = Math.Round(model.Amount, 2);
+                        account.Account.Balance = (account.Account.Balance + amount);
+                        return model;
+                    }
+                    else return null;
+
+                }
+                else
+                {
+                    model.AmountValid = false;
+                    return model;
+                }
+            }
+
+            model.AccountExist = false;
+            return model;
+
+        }
+
+        public TransactionViewModel Withdraw(TransactionViewModel model)
+        {
+            model.AmountValid = false;
+            model.AccountExist = false;
+            if (CustomerAccountsViewModel.CustomerList.Exists(m => m.Account.AccountID == model.AccountNumber))
+            {
+                model.AccountExist = true;
+                if (model.Amount > ((decimal)0.01))
+                {
+                    model.AmountValid = true;
+                    var accounts = CustomerAccountsViewModel.CustomerList.Select(c => c.Account.AccountID);
+                    if (accounts.Contains(model.AccountNumber))
+                    {
+                        var account =
+                            CustomerAccountsViewModel.CustomerList.SingleOrDefault(m =>
+                                m.Account.AccountID == model.AccountNumber);
+                        if (model.Amount > account.Account.Balance)
+                        {
+                            model.AmountValid = false;
+                            return model;
+                        }
+
+                        var amount = Math.Round(model.Amount, 2);
+                        account.Account.Balance = (account.Account.Balance - amount);
+                        return model;
+                    }
+                    else return null;
+
+                }
+                else
+                {
+                    model.AmountValid = false;
+                    return model;
+                }
+            }
+
+            model.AccountExist = false;
+            return model;
+
+        }
+
     }
 }
