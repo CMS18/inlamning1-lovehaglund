@@ -102,7 +102,6 @@ namespace ALMBank.Models.Services
             var accountTo = GetAccount(toAccountId);
 
             if (accountTo == null || accountFrom == null) return false;
-
             if (accountFrom.Balance < sum) return false;
 
             accountFrom.Balance -= sum;
