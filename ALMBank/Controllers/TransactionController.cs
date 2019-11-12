@@ -24,43 +24,58 @@ namespace ALMBank.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Withdraw(TransactionViewModel model)
         {
-           
-            model = _bank.Withdraw(model);
-            if (model.AccountExist == false)
+            if (ModelState.IsValid)
             {
-                TempData["Error"] = "Account does not exist.";
-                return View("Index", model);
-            }
-            if (model.AmountValid == false)
-            {
-                TempData["Error"] = "Invalid amount";
-                return View("Index", model);
+                    model = _bank.Withdraw(model);
+                        if (model.AccountExist == false)
+                        {
+                            TempData["Error"] = "Account does not exist.";
+                            return View("Index", model);
+                        }
+                        if (model.AmountValid == false)
+                        {
+                            TempData["Error"] = "Invalid amount";
+                            return View("Index", model);
 
-            }
-
-            TempData["Message"] = $"Successfully withdrew {model.Amount:C} from account #{model.AccountNumber}";
+                        }
+                        TempData["Message"] = $"Successfully withdrew {model.Amount:C} from account #{model.AccountNumber}";
             return View("Index");
+            }
+            else
+            {
+                TempData["Error"] = "An error occured while making the transfer. Make sure the account number(s) and amount is correctly formatted.";
+                return View("Index");
+            }
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Deposit(TransactionViewModel model)
         {
-            model = _bank.Deposit(model);
-
-            if (model.AccountExist == false)
+            if (ModelState.IsValid)
             {
-                TempData["Error"] = "Account does not exist.";
-                return View("Index", model);
-            }
-            if (model.AmountValid == false)
-            {
-                TempData["Error"] = "Invalid amount";
-                return View("Index", model);
+                model = _bank.Deposit(model);
+                if (model.AccountExist == false)
+                {
+                    TempData["Error"] = "Account does not exist.";
+                    return View("Index", model);
+                }
+                if (model.AmountValid == false)
+                {
+                    TempData["Error"] = "Invalid amount";
+                    return View("Index", model);
 
+                }
+                TempData["Message"] = $"Successfully deposit {model.Amount:C} to account #{model.AccountNumber}";
+                return View("Index");
             }
-            TempData["Message"] = $"Successfully deposit {model.Amount:C} to account #{model.AccountNumber}";
-            return View("Index");
+            else
+            {
+                TempData["Error"] = "An error occured while making the transfer. Make sure the account number(s) and amount is correctly formatted.";
+                return View("Index");
+            }
 
         }
     }
