@@ -32,7 +32,7 @@ namespace ALMBank
             //test
             // Test branch dasdasdasas
             services.AddScoped<IBank, BankRepository>();
-            //test
+            //test test2
 
         }
 
