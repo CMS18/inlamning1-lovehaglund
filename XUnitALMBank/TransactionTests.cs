@@ -30,6 +30,11 @@ namespace XUnitALMBank
             success.ShouldBe(true);
             accountFrom.Balance.ShouldBe(0M);
             accountTo.Balance.ShouldBe(200M);
+
+            //ALTERNATIVT ASSERT
+            //Assert.True(true);
+            //Assert.Equal(0, accountFrom.Balance);
+            //Assert.Equal(200, accountTo.Balance);
         }
 
         [Fact]
@@ -54,7 +59,7 @@ namespace XUnitALMBank
 
 
         [Fact]
-        public async Task Deposit_CheckBalance_ShouldBe()
+        public void Deposit_CheckBalance_ShouldBe()
         {
             //Arrange
             var repo = new BankRepository();
@@ -72,7 +77,7 @@ namespace XUnitALMBank
 
         }
         [Fact]
-        public async Task Withdraw_CheckBalance_ShouldBe()
+        public void Withdraw_CheckBalance_ShouldBe()
         {
             //Arrange
             var repo = new BankRepository();
@@ -91,7 +96,7 @@ namespace XUnitALMBank
 
         }
         [Fact]
-        public async Task Withdraw_CheckBalance_InvalidAmount()
+        public void Withdraw_CheckBalance_InvalidAmount()
         {
             //Arrange
             var repo = new BankRepository();
